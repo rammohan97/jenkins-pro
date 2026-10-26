@@ -1,0 +1,38 @@
+pipeline {
+    agent {
+        node { label 'agent-1' }
+    }
+    stages {
+        stage ('Build') {
+            steps {
+                script {
+                    sh """
+                        echo 'Building...'
+                    """
+                }
+            }
+        }
+        stage ('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage ('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+    post {
+        always {
+            echo ' Always executed'
+            cleanWs()
+        }
+        success {
+            echo ' Success executed'
+        }
+        failure {
+            echo ' Failure executed'
+    }
+    }
+}
