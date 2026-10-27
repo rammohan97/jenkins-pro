@@ -1,0 +1,38 @@
+pipeline {
+    agent {
+        node { label 'agent-1' }
+    }
+    environment {
+        NAME = 'Ram'
+    }
+    stages {
+        stage ('Build') {
+            steps {
+                echo 'Building...'
+                echo "Hello ${NAME}"
+            }
+        }
+        stage ('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage ('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+    post {
+        always {
+            echo ' Always executed'
+            cleanWs()
+        }
+        success {
+            echo ' Success executed'
+        }
+        failure {
+            echo ' Failure executed'
+    }
+    }
+}
