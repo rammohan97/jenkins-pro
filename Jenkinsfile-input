@@ -12,7 +12,7 @@ pipeline {
     parameters {
         string(name: 'PERSON', defaultValue: 'Ram', description: 'Enter your name')
         text(name: 'TEXT', defaultValue: 'Hello', description: 'Enter your text')
-        booleanParam(name: 'TOOGLE', defaultValue: true, description: 'Check the box if you want to proceed')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Check the box if you want to proceed')
         choice(name: 'CHOICE', choices: ['Option 1', 'Option 2', 'Option 3'], description: 'Select an option')
         password(name: 'PASSWORD', defaultValue: 'password', description: 'Enter your password')
     }
@@ -41,13 +41,16 @@ pipeline {
             }
         }
         stage ('Deploy') {
-            input {
+            /* input {
                 message "Do you want to deploy?"
                 ok "Yes, I want to deploy"
                 submitter "admin"
                 parameters {
                     string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: 'Enter the deployment environment')
                 }
+            } */
+            when {
+                expression { return params.DEPLOY }
             }
 
 

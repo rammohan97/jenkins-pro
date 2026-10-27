@@ -6,13 +6,13 @@ pipeline {
         NAME = 'Ram'
     }
     options {
-        timeout (time: 10, unit: 'MINUTES')
+        timeout (time: 10, unit: 'SECONDS')
         disableConcurrentBuilds()
     }
     parameters {
         string(name: 'PERSON', defaultValue: 'Ram', description: 'Enter your name')
         text(name: 'TEXT', defaultValue: 'Hello', description: 'Enter your text')
-        booleanParam(name: 'TOOGLE', defaultValue: true, description: 'Check the box if you want to proceed')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Check the box if you want to proceed')
         choice(name: 'CHOICE', choices: ['Option 1', 'Option 2', 'Option 3'], description: 'Select an option')
         password(name: 'PASSWORD', defaultValue: 'password', description: 'Enter your password')
     }
@@ -29,7 +29,7 @@ pipeline {
                         echo "Toogle: ${params.TOOGLE}"
                         echo "Choice: ${params.CHOICE}"
                         echo "Password: ${params.PASSWORD}"
-                    echo "This is build stage"
+                    echo "This is build"
                      env
                     """
                 }
