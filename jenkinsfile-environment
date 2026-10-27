@@ -8,8 +8,13 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                echo 'Building...'
-                echo "Hello ${NAME}"
+                script {
+                    sh """
+                     echo 'Building...'
+                     echo "Hello ${NAME}"
+                     env
+                    """
+                }
             }
         }
         stage ('Test') {
