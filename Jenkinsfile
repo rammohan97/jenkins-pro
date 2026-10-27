@@ -30,14 +30,16 @@ pipeline {
             }
         }
         stage ('Parameters Display') {
-            script {
-                sh """
-                    echo "Hello ${params.PERSON}"
-                    echo "Text: ${params.TEXT}"
-                    echo "Toogle: ${params.DEPLOY}"
-                    echo "Choice: ${params.CHOICE}"
-                    echo "Password: ${params.PASSWORD}"
-                """
+            steps {
+                script {
+                    sh """
+                        echo "Hello ${params.PERSON}"
+                        echo "Text: ${params.TEXT}"
+                        echo "Toogle: ${params.DEPLOY}"
+                        echo "Choice: ${params.CHOICE}"
+                        echo "Password: ${params.PASSWORD}"
+                    """
+                }
             }
         }
         stage ('Deploy') {
