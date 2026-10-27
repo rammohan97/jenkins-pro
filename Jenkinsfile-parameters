@@ -29,6 +29,7 @@ pipeline {
                         echo "Toogle: ${params.TOOGLE}"
                         echo "Choice: ${params.CHOICE}"
                         echo "Password: ${params.PASSWORD}"
+                    echo "This is build stage"
                      env
                     """
                 }
