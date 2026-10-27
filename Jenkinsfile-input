@@ -1,0 +1,74 @@
+pipeline {
+    agent {
+        node { label 'agent-1' }
+    }
+    environment {
+        NAME = 'Ram'
+    }
+    options {
+        timeout (time: 10, unit: 'SECONDS')
+        disableConcurrentBuilds()
+    }
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Ram', description: 'Enter your name')
+        text(name: 'TEXT', defaultValue: 'Hello', description: 'Enter your text')
+        booleanParam(name: 'TOOGLE', defaultValue: true, description: 'Check the box if you want to proceed')
+        choice(name: 'CHOICE', choices: ['Option 1', 'Option 2', 'Option 3'], description: 'Select an option')
+        password(name: 'PASSWORD', defaultValue: 'password', description: 'Enter your password')
+    }
+    stages {
+        stage ('Build') {
+            steps {
+                script {
+                    sh """
+                     echo 'Building...'
+                     echo "Hello ${NAME}"
+                     # sleep 10;
+                        echo "Hello ${params.PERSON}"
+                        echo "Text: ${params.TEXT}"
+                        echo "Toogle: ${params.TOOGLE}"
+                        echo "Choice: ${params.CHOICE}"
+                        echo "Password: ${params.PASSWORD}"
+                    echo "This is build stage"
+                     env
+                    """
+                }
+            }
+        }
+        stage ('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage ('Deploy') {
+            input {
+                message "Do you want to deploy?"
+                ok "Yes, I want to deploy"
+                submitter "admin"
+                parameters {
+                    string(name: 'DEPLOY_ENV', defaultValue: 'dev', description: 'Enter the deployment environment')
+                }
+            }
+
+
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+    post {
+        always {
+            echo ' Always executed'
+            cleanWs()
+        }
+        success {
+            echo ' Success executed'
+        }
+        failure {
+            echo ' Failure executed'
+        }
+        aborted {
+            echo ' Aborted executed'
+        }
+    }
+}
