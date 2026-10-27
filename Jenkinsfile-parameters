@@ -24,6 +24,11 @@ pipeline {
                      echo 'Building...'
                      echo "Hello ${NAME}"
                      # sleep 10;
+                        echo "Hello ${params.PERSON}"
+                        echo "Text: ${params.TEXT}"
+                        echo "Toogle: ${params.TOOGLE}"
+                        echo "Choice: ${params.CHOICE}"
+                        echo "Password: ${params.PASSWORD}"
                      env
                     """
                 }
