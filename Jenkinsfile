@@ -61,4 +61,19 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo ' Always executed'
+            cleanWs()
+        }
+        success {
+            echo ' Success executed'
+        }
+        failure {
+            echo ' Failure executed'
+        }
+        aborted {
+            echo ' Aborted executed'
+        }
+    }
 }
